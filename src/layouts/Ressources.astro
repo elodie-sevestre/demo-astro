@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+type Props = CollectionEntry<"ressources">["data"];
+
+const { title, description, category, url } = Astro.props;
+---
+
+<html lang="fr">
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 100%;
+        margin: 0;
+      }
+      .hero-image {
+        width: 100%;
+      }
+      .hero-image img {
+        display: block;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow: var(--box-shadow);
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+      .title {
+        margin-bottom: 1em;
+        padding: 1em 0;
+        text-align: center;
+        line-height: 1;
+      }
+      .title h1 {
+        margin: 0 0 0.5em 0;
+      }
+      .date {
+        margin-bottom: 0.5em;
+        color: rgb(var(--gray));
+      }
+      .last-updated-on {
+        font-style: italic;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5em;
+        margin-bottom: 1.5em;
+      }
+      .type {
+        padding: 0.2em 0.6em;
+        border: 1px solid rgb(var(--gray-light));
+        border-radius: 999px;
+        font-size: 0.85em;
+        color: rgb(var(--gray-dark));
+      }
+      .tag {
+        padding: 0.2em 0.6em;
+        border-radius: 999px;
+        font-size: 0.85em;
+        background: rgb(var(--gray-light));
+        color: rgb(var(--gray-dark));
+      }
+      .url {
+        margin-left: auto;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="prose">
+          <div class="title">
+            <h1>{title}</h1>
+            <hr />
+          </div>
+          <div class="meta">
+            <span class="type">{category}</span>
+            <a class="url" href={url} target="_blank" rel="noopener noreferrer">
+              Visiter la ressource
+            </a>
+          </div>
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
